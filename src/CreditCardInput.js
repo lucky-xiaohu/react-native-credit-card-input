@@ -161,6 +161,7 @@ export default class CreditCardInput extends Component {
           imageBack={cardImageBack}
           bankLogo={bankLogo}
           cardType={cardType}
+          requiresExpiry={requiresExpiry}
           customIcons={cardBrandIcons}
           name={requiresName ? name : " "}
           number={number}

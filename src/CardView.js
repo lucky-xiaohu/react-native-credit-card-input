@@ -110,6 +110,7 @@ export default class CardView extends Component {
       PropTypes.number, PropTypes.string, PropTypes.object,
     ]),
     cardType: PropTypes.string,
+    requiresExpiry: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -131,7 +132,7 @@ export default class CardView extends Component {
     const { focused,
       brand, name, number, expiry, cvc, customIcons,
       placeholder, imageFront, imageBack, scale, fontFamily,
-      bankLogo, cardType,
+      bankLogo, cardType, requiresExpiry
     } = this.props;
 
     const Icons = { ...defaultIcons, ...customIcons };
@@ -170,12 +171,16 @@ export default class CardView extends Component {
                 numberOfLines={1}>
                 { !name ? placeholder.name : name.toUpperCase() }
               </Text>
-              <Text style={[s.baseText, { fontFamily }, s.expiryLabel, s.placeholder, focused === "expiry" && s.focused]}>
-                MONTH/YEAR
-              </Text>
-              <Text style={[s.baseText, { fontFamily }, s.expiry, !expiry && s.placeholder, focused === "expiry" && s.focused]}>
-                { !expiry ? placeholder.expiry : expiry }
-              </Text>
+              {requiresExpiry &&
+                <Text style={[s.baseText, { fontFamily }, s.expiryLabel, s.placeholder, focused === "expiry" && s.focused]}>
+                  MONTH/YEAR
+                </Text>
+              }
+              {requiresExpiry &&
+                <Text style={[s.baseText, { fontFamily }, s.expiry, !expiry && s.placeholder, focused === "expiry" && s.focused]}>
+                  { !expiry ? placeholder.expiry : expiry }
+                </Text>
+              }
               { isAmex &&
                   <Text style={[s.baseText, { fontFamily }, s.amexCVC, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
                     { !cvc ? placeholder.cvc : cvc }
