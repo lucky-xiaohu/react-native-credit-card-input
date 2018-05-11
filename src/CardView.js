@@ -17,6 +17,14 @@ const BASE_SIZE = { width: 300, height: 190 };
 const s = StyleSheet.create({
   cardContainer: {},
   cardFace: {},
+  bank: {
+    position: "absolute",
+    top: 15,
+    left: 10,
+    width: 150,
+    height: 35,
+    resizeMode: "contain",
+  },
   icon: {
     position: "absolute",
     top: 15,
@@ -112,7 +120,9 @@ export default class CardView extends Component {
   render() {
     const { focused,
       brand, name, number, expiry, cvc, customIcons,
-      placeholder, imageFront, imageBack, scale, fontFamily } = this.props;
+      placeholder, imageFront, imageBack, scale, fontFamily,
+      bankLogo
+    } = this.props;
 
     const Icons = { ...defaultIcons, ...customIcons };
     const isAmex = brand === "american-express";
@@ -135,6 +145,9 @@ export default class CardView extends Component {
           flip={shouldFlip}>
           <ImageBackground style={[BASE_SIZE, s.cardFace, transform]}
             source={imageFront}>
+              {bankLogo &&
+                <Image style={[s.bank]} source={bankLogo} />
+              }
               <Image style={[s.icon]}
                 source={Icons[brand]} />
               <Text style={[s.baseText, { fontFamily }, s.number, !number && s.placeholder, focused === "number" && s.focused]}>

@@ -61,6 +61,9 @@ export default class CreditCardInput extends Component {
     cardScale: PropTypes.number,
     cardFontFamily: PropTypes.string,
     cardBrandIcons: PropTypes.object,
+    bankLogo: PropTypes.oneOfType([
+      PropTypes.number, PropTypes.string, PropTypes.object,
+    ]),
 
     allowScroll: PropTypes.bool,
 
@@ -144,7 +147,7 @@ export default class CreditCardInput extends Component {
       cardImageFront, cardImageBack, inputContainerStyle,
       values: { number, expiry, cvc, name, type }, focused,
       allowScroll, requiresName, requiresCVC, requiresPostalCode, requiresExpiry,
-      cardScale, cardFontFamily, cardBrandIcons,
+      cardScale, cardFontFamily, cardBrandIcons, bankLogo,
     } = this.props;
 
     return (
@@ -155,6 +158,7 @@ export default class CreditCardInput extends Component {
           fontFamily={cardFontFamily}
           imageFront={cardImageFront}
           imageBack={cardImageBack}
+          bankLogo={bankLogo}
           customIcons={cardBrandIcons}
           name={requiresName ? name : " "}
           number={number}
