@@ -33,6 +33,12 @@ const s = StyleSheet.create({
     height: 40,
     resizeMode: "contain",
   },
+  cardType: {
+    position: "absolute",
+    bottom: 38,
+    left: 32,
+    fontSize: 10,
+  },
   baseText: {
     color: "rgba(255, 255, 255, 0.8)",
     backgroundColor: "transparent",
@@ -100,6 +106,10 @@ export default class CardView extends Component {
     imageFront: PropTypes.number,
     imageBack: PropTypes.number,
     customIcons: PropTypes.object,
+    bankLogo: PropTypes.oneOfType([
+      PropTypes.number, PropTypes.string, PropTypes.object,
+    ]),
+    cardType: PropTypes.string,
   };
 
   static defaultProps = {
@@ -121,7 +131,7 @@ export default class CardView extends Component {
     const { focused,
       brand, name, number, expiry, cvc, customIcons,
       placeholder, imageFront, imageBack, scale, fontFamily,
-      bankLogo
+      bankLogo, cardType,
     } = this.props;
 
     const Icons = { ...defaultIcons, ...customIcons };
@@ -150,6 +160,9 @@ export default class CardView extends Component {
               }
               <Image style={[s.icon]}
                 source={Icons[brand]} />
+              <Text style={[s.baseText, s.placeholder, s.cardType]}>
+                {cardType}
+              </Text>
               <Text style={[s.baseText, { fontFamily }, s.number, !number && s.placeholder, focused === "number" && s.focused]}>
                 { !number ? placeholder.number : number }
               </Text>
